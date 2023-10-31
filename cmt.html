@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+#editor {
+    float: left;
+    width: 40%;
+    padding: 20px;
+}
+#text-editor {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+#image-upload {
+    margin-bottom: 10px;
+}
+#image-preview {
+    width: 100%;
+    height: auto;
+}
+#button {
+    display: block;
+    margin-top: 10px;
+}
+#blog {
+    float: right;
+    width: 60%;
+    padding: 20px;
+}
+#blog-content {
+    width: 100%;
+    height: auto;
+}
+</style>
+</head>
+<body> 
+    <div id="editor">
+        <h1>Blog Editor</h1>
+        <textarea id="text-editor" placeholder="Enter your text here"></textarea>
+        <input type="file" id="image-upload" accept="image/*">
+        <div id="image-preview"></div>
+        <button onclick="addText()">Add Text</button>
+        <button onclick="addImage()">Add Image</button>
+    </div>
+    <div id="blog">
+        <h1>Your Blog</h1>
+        <div id="blog-content"></div>
+    </div>
+    <script>
+    function addText() {
+    const text = document.getElementById("text-editor").value;
+    const blogContent = document.getElementById("blog-content");
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    blogContent.appendChild(paragraph);
+     }
+    function addImage() {
+    const imageUpload = document.getElementById("image-upload");
+    const blogContent = document.getElementById("blog-content");
+    const imagePreview = document.getElementById("image-preview");
+    if (imageUpload.files && imageUpload.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const image = new Image();
+            image.src = e.target.result;
+            blogContent.appendChild(image);
+    };
+        reader.readAsDataURL(imageUpload.files[0]);
+    }
+}
+</script>
+</body>
+</html>
